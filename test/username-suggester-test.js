@@ -63,7 +63,7 @@ describe('Suggester-Test', function () {
     this.timeout(5000);
     it('should return an array of valid usernames when given a string of words and numbers',
        function () {
-           return suggester.suggester("Midna, Yelping", "1")
+           return suggester.suggest("Midna, Yelping", "1")
                .then(function (suggestedList) {
                          assert.equal(suggestedList.length, expected.length);
                          for (i = 0; i < suggestedList.length; i++) {
