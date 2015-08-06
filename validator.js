@@ -1,8 +1,13 @@
 var rp = require("request-promise");
 
 var isValid = exports.isValid = function (username) {
+    var uri = process.env.HELIOSPATH;
+    if (typeof uri == 'undefined') {
+        uri = 'https://service.wikia.com/helios/username/validation';
+    }
+
     var options = {
-        uri: 'https://services.wikia.com/helios/username/validation',
+        uri: uri,
         method: 'POST',
         form: {username: username}
     };

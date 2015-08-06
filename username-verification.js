@@ -23,6 +23,7 @@ exports.verifyUsername = function (username) {
 exports.editInputUsername = function (username) {
     var splitUsername = username.replace(/[^A-Za-z_-]+/g, "_");
     splitUsername = splitUsername.split(/[-_]+/);
+    splitUsername = splitUsername.filter(Boolean);
 
     if (splitUsername.length == 0) {
         return Promise.resolve([]);
@@ -30,6 +31,7 @@ exports.editInputUsername = function (username) {
 
     var splitNumber = username.replace(/[^0-9_-]+/g, "_");
     splitNumber = splitNumber.split(/[-_]+/);
+    splitNumber = splitNumber.filter(Boolean);
 
     if (splitNumber.length == 0) {
         for (i = 0; i < 5; i++) {

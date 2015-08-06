@@ -1,6 +1,6 @@
 var usernameVerification = require("./username-verification.js");
 
-usernameVerification.editInputUsername("alaph()__(9l;sayou")
+usernameVerification.editInputUsername("!@#$Midna__1**Yelping??")
 .then(function(list) {
     console.log(list);
           });
