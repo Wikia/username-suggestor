@@ -1,0 +1,138 @@
+html {
+    font-family: 'Karla', sans-serif;
+}
+
+body {
+    margin:  0px;
+    background-color: #314E05;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+h1 {
+    font-size: 400%;
+    margin: 15px;
+    color: #E0F4C2;
+}
+
+.title {
+    font-size: 95%;
+    color: #E0F4C2;
+    background-color: #729C34;
+    text-align: center;
+    width: 75%;
+    padding:0px 20px 20px 20px;
+    margin: 25px auto;
+}
+
+.instructions {
+    text-align: left;
+    background-color: #923760;
+    color: #E9BBD0;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+    padding: 5px 20px;
+}
+
+.suggested-usernames {
+    text-align: justify;
+}
+
+.verification-section {
+    color: #E0F4C2;
+    text-align: center;
+    background-color: #2A7E43;
+    float: left;
+    width: 44%;
+    margin-left: 5%;
+    margin-bottom: 75px;
+    padding: 10px 20px;
+    height: 500px;
+}
+
+.suggestion-section {
+    color: #E0F4C2;
+    text-align: center;
+    background-color: #9FA838;
+    float: right;
+    width: 44%;
+    margin-right: 5%;
+    margin-bottom: 75px;
+    padding: 10px 20px;
+    height: 500px;
+}
+
+.helper-message {
+    color: #EBF3DE;
+}
+
+input[type="text"] {
+    font-size: 13px;
+    height: 25px;
+    width: 190px;
+}
+
+button[name='suggestbutton'] {
+    -moz-box-shadow:inset 0px 1px 0px 0px #BEC468;
+    -webkit-box-shadow:inset 0px 1px 0px 0px #BEC468;
+    box-shadow:inset 0px 1px 0px 0px #BEC468;
+    background-color:#D3DA74;
+    border:1px solid #7F8623;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-family:Arial;
+    font-size:13px;
+    font-weight:bold;
+    padding:6px 12px;
+    text-decoration:none;
+}
+
+button[name='suggestbutton']:hover {
+    background-color:#A9AE5D;
+    color: #F0F0F0;
+    -moz-box-shadow:inset 0px 1px 0px 0px #989D54;
+    -webkit-box-shadow:inset 0px 1px 0px 0px #989D54;
+    box-shadow:inset 0px 1px 0px 0px #989D54;
+}
+
+button[name='usernamebutton'] {
+    -moz-box-shadow:inset 0px 1px 0px 0px #579067;
+    -webkit-box-shadow:inset 0px 1px 0px 0px #579067;
+    box-shadow:inset 0px 1px 0px 0px #579067;
+    background-color:#6DB481;
+    border:1px solid #365A40;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-family:Arial;
+    font-size:13px;
+    font-weight:bold;
+    padding:6px 12px;
+    text-decoration:none;
+}
+
+button[name='usernamebutton']:hover {
+    background-color:#589268;
+    color: #F0F0F0;
+    -moz-box-shadow:inset 0px 1px 0px 0px #467352;
+    -webkit-box-shadow:inset 0px 1px 0px 0px #467352;
+    box-shadow:inset 0px 1px 0px 0px #467352;
+}
+
+button:active {
+    position:relative;
+    top:1px;
+}
+
+footer {
+    height: 50px;
+    width: 100%;
+    text-align: center;
+    color: #E0F4C2;
+    padding: 0px;
+}

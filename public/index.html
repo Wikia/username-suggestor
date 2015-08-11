@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Username Suggestion</title>
+
+    <!-- Styling files -->
+    <link href="pagelayout.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Karla:400,700' rel='stylesheet' type='text/css'>
+
+    <!-- JQuery -->
+    <script src="jquery.js"></script>
+
+    <!-- JQuery logic -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#username").keypress(function (key) {
+                if (key.which && key.which === 13) {
+                    $("#usernamebutton").click();
+                    return false;
+                }
+                return true;
+            });
+
+            $("#desirednumbers").keypress(function (key) {
+                if (key.which && key.which === 13) {
+                    $("#suggestbutton").click();
+                    return false;
+                }
+                return true;
+            });
+
+            $("#desiredwords").keypress(function (key) {
+                if (key.which && key.which === 13) {
+                    $("#suggestbutton").click();
+                    return false;
+                }
+                return true;
+            });
+
+            $("#usernamebutton").click(function () {
+                var inputUsername = $("#username").val();
+                if (!inputUsername) {
+                    return;
+                }
+                $("#verification-results").empty();
+                $("#please-wait-template .please-wait").clone().appendTo("#verification-results");
+                $.post("/verify", {username: inputUsername})
+                        .done(function (errorList) {
+                                  postResults(errorList);
+                              });
+            });
+
+            var postResults = function (errorList) {
+                if (errorList.length === 0) {
+                    $("#verification-results").empty();
+                    $("#verification-results-template .verification-success").clone().appendTo("#verification-results");
+                } else {
+                    $.post("/suggestEdited", {username: $("#username").val()})
+                            .done(function (suggestedList) {
+                                      postResultsWithSuggestions(suggestedList, errorList);
+                                  });
+                }
+
+            };
+
+            var postResultsWithSuggestions = function (suggestedList, errorList) {
+                var errorString = errorList.join("\n");
+                var suggestedString;
+
+                if (suggestedList.length === 0) {
+                    suggestedString =
+                            "Oh no, it seems that the variations we generated with your suggested username are all taken! Maybe you should think of a different username.";
+                }
+
+                else if (suggestedList[0] === 'invalidCharacters') {
+                    suggestedString =
+                            "Oh no, looks like you didn't enter valid characters. :( We can not produce a valid username if there are no valid characters!";
+                } else {
+                    suggestedString = suggestedList.join(",  ");
+                }
+                $("#verification-results").empty();
+                $("#verification-results-template .verification-failure").clone()
+                        .find(".error-reasons")
+                        .text(errorString)
+                        .end()
+                        .find(".suggested-usernames")
+                        .text(suggestedString)
+                        .end()
+                        .appendTo("#verification-results");
+            };
+
+            $("#suggestbutton").click(function () {
+                var words = $("#desiredwords").val();
+                var numbers = $("#desirednumbers").val();
+
+                if (!words) {
+                    return;
+                }
+
+                $("#suggestion-results").empty();
+                $("#please-wait-template .please-wait").clone().appendTo("#suggestion-results");
+                $.post("/suggest", {desiredWords: words, desiredNumbers: numbers})
+                        .done(function (suggestedList) {
+                                  postSuggestions(suggestedList);
+                              })
+            });
+
+            var postSuggestions = function (suggestedList) {
+                var suggestedString;
+                if (suggestedList.length === 0) {
+                    suggestedString =
+                            "Oh no, it seems that all of the suggestions we generated are all taken! Maybe you should add more words and numbers."
+                } else {
+                    suggestedString = suggestedList.join(", ");
+                }
+
+                $("#suggestion-results").empty();
+                $("#suggestion-results-template .suggestions").clone()
+                        .find(".suggested-usernames")
+                        .text(suggestedString)
+                        .end()
+                        .appendTo("#suggestion-results");
+            }
+        });
+
+    </script>
+</head>
+<body>
+
+<section id="suggest" class="user-suggest">
+    <div class="title">
+        <h1>Username Suggestion</h1>
+
+        Do you want to register an account at Wikia but you don't know what you want your
+        username to be? Or you don't want to go through all the trouble of filling out the
+        spaces only to find out that the username you took hours to think of was taken? Well
+        worry no more! This application will suggest usernames for you if you give keywords or
+        numbers! You can also verify a username you want and receive suggestions if the username
+        is invalid!
+
+    </div>
+    <div class="instructions">
+        <p><strong>Instructions:</strong> If you want to verify a username, fill in the username you
+            want in the
+            "Verify Username" box and click "Verify". If you want to receive suggestions, add words
+            you wish to add in the "Desired Words" box with commas in between entries.</p>
+    </div>
+
+    <div class="verification-section">
+        <div id="verification">
+            <p><strong>Verify username:</strong></p>
+            <input type="text" name="username" id="username"
+                   placeholder="Enter your suggested username...">
+            <button name="usernamebutton" id="usernamebutton">Verify</button>
+        </div>
+
+        <div id="verification-results">
+
+        </div>
+    </div>
+
+    <div class="suggestion-section">
+        <div id="suggestion">
+            <p><strong>Add desired words and/or numbers:</strong></p>
+            <input type="text" name="desiredwords" id="desiredwords"
+                   placeholder="Enter desired words...">
+            <input type="text" name="desirednumbers" id="desirednumbers"
+                   placeholder="Enter desired numbers...">
+            <button name="suggestbutton" id="suggestbutton">Enter</button>
+        </div>
+
+        <div id="suggestion-results">
+
+        </div>
+    </div>
+
+</section>
+
+<footer>Connie Truong 2015 | Wikia Inc.</footer>
+
+<div style="display:none" id="please-wait-template">
+    <div class="please-wait">
+        <p class="helper-message">Please wait while we calculate your results!</p>
+    </div>
+</div>
+
+<div style="display:none" id="verification-results-template">
+    <div class="verification-success">
+        <h4 class="helper-message">Your inputted username is valid and available! \(^o^)/</h4>
+    </div>
+
+    <div class="verification-failure">
+        <h4 class="helper-message">Your inputted username is invalid for the following reasons:</h4>
+
+        <p class="error-reasons"></p>
+        <h4 class="helper-message">Here are some suggested usernames based on your input!</h4>
+
+        <p class="suggested-usernames"></p>
+    </div>
+</div>
+
+<div style="display:none" id="suggestion-results-template">
+    <div class="suggestions">
+        <h4 class="helper-message">Here are some valid usernames based on your input!</h4>
+
+        <p class="suggested-usernames"></p>
+    </div>
+</div>
+
+</body>
+</html>

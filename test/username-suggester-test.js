@@ -1,7 +1,7 @@
 var assert = require("assert");
-var userVerification = require("../username-verification.js");
-var usernameGenerator = require("../username-generator.js");
-var suggester = require("../suggester.js");
+var userVerification = require("../js/username-verification.js");
+var usernameGenerator = require("../js/username-generator.js");
+var suggester = require("../js/suggester.js");
 
 var expected = ["MidnaYelping", "Midna-Yelping",
                 "Midna_Yelping", "MidnaYelping1",

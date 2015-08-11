@@ -2,7 +2,7 @@
   "name": "username-suggestion",
   "version": "1.0.0",
   "description": "service that creates unused username suggestions for users who are registering",
-  "main": "app.js",
+  "main": "js/username-suggestion-routing.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
